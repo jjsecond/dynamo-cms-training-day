@@ -1,0 +1,47 @@
+{
+  "local-podcasts-rss-api": [
+    {
+      "PutRequest": {
+        "Item": {
+          "Item": {
+            "pk": { "S":  "article#da616b01-f859-43f4-93f2-f9a94e788157" },
+            "gsi1pk": { "S":  "article" },
+            "dateCreated": { "S":  "2023-04-26T15:40:16.896Z" },
+            "text": {"S": "This is the body"},
+            "headline": {"S": "headline One"},
+            "subheadline": {"S": "sub headline one"},
+            "type": {"S": "article"}
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "Item": {
+            "pk": { "S":  "article#JJJ16b01-f859-43f4-93f2-f9a94e788157" },
+            "gsi1pk": { "S":  "article" },
+            "dateCreated": { "S":  "2023-04-26T15:40:16.896Z" },
+            "text": {"S": "This is the TWO"},
+            "headline": {"S": "headline TWO"},
+            "subheadline": {"S": "sub headline TWO"},
+            "type": {"S": "article"}
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": { "S":  "article#KKK16b01-f859-43f4-93f2-f9a94e788157" },
+          "gsi1pk": { "S":  "article" },
+          "dateCreated": { "S":  "2023-04-26T15:40:16.896Z" },
+          "text": {"S": "This is the body"},
+          "headline": {"S": "headline THREE"},
+          "subheadline": {"S": "sub headline THREE"},
+          "type": {"S": "article"}
+        }
+      }
+    }
+  ]
+}
