@@ -1,17 +1,6 @@
 version: "3"
 
 services:
-  # backend-cms:
-  # # path to dockerfile
-  #   build: .
-  #   ports:
-  #     - "3050:3050"
-  #   volumes:
-  #   # enables us to listen to changes 
-  #     - ./:/app
-  #   # makessure we have our node_modules
-  #     - /app/node_modules
-  #   # spin up DynamoDB image
   dynamodb-local:
     command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
     image: "amazon/dynamodb-local:latest"
@@ -19,15 +8,19 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - "./docker/dynamodb:/home/dynamodblocal/data"
+      - "./src/docker/dynamodb:/home/dynamodblocal/data"
     working_dir: /home/dynamodblocal
   backend-cms:
+  # path to dockerfile
     build: .
-    volumes:
-      - ./:/app
-      - /app/node_modules
     ports:
-      - "8080:8080"
+      - "3050:3050"
+    volumes:
+    # enables us to listen to changes 
+      - ./:/app
+    # makessure we have our node_modules
+      - /app/node_modules
+    # spin up DynamoDB image
     depends_on:
       - "dynamodb-local"
     links:
@@ -36,48 +29,5 @@ services:
       AWS_ACCESS_KEY_ID: 'local'
       AWS_SECRET_ACCESS_KEY: 'local'
       REGION: 'us-east-1'
-  # dynamo-db:
-  #   image: 'amazon/dynamodb-local:latest'
-  #   container_name: dynamo-db-local
-  #   extra_hosts:
-  #     - 'host.docker.internal:host-gateway'
-  #   ports:
-  #     - '8000:8000'
-  #   healthcheck:
-  #     test: ['CMD', 'curl', 'http://host.docker.internal:8000']
-  #     interval: 5s
-  #     timeout: 4s
-  #     retries: 10
-  #   command: ' -jar DynamoDBLocal.jar'
 
-  # # set up table structure
-  # dynamo-tables:
-  #   build:
-  #     context: ./local-db
-  #     dockerfile: Dockerfile.createDb
-  #   extra_hosts:
-  #     - 'host.docker.internal:host-gateway'
-  #   depends_on:
-  #     dynamo-db:
-  #       condition: 'service_healthy'
-  #   environment:
-  #     AWS_REGION: 'us-east-1'
-  #     AWS_ACCESS_KEY_ID: local
-  #     AWS_SECRET_ACCESS_KEY: local
-  #   profiles: ['setup']
-
-  # # seed the database
-  # dynamo-seed:
-  #   build:
-  #     context: ./local-db
-  #     dockerfile: Dockerfile.seedDb
-  #   extra_hosts:
-  #     - 'host.docker.internal:host-gateway'
-  #   depends_on:
-  #     dynamo-tables:
-  #       condition: 'service_completed_successfully'
-  #   environment:
-  #     AWS_REGION: 'us-east-1'
-  #     AWS_ACCESS_KEY_ID: local
-  #     AWS_SECRET_ACCESS_KEY: local
-  #   profiles: ['setup']
+  

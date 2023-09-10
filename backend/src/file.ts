@@ -1,6 +1,7 @@
 // Import required AWS SDK clients and commands for Node.js
-import { CreateTableCommand } from "@aws-sdk/client-dynamodb";
+import { CreateTableCommand, ListTablesCommand } from "@aws-sdk/client-dynamodb";
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import seedTable from "./handlers/batchwrite/batchwrite";
 
 
 const localDynamoDbClient = new DynamoDBClient({
@@ -12,43 +13,63 @@ const localDynamoDbClient = new DynamoDBClient({
     }
 });
 
+
 // Set the parameters
 export const params = {
   AttributeDefinitions: [
     {
-      AttributeName: "Season", //ATTRIBUTE_NAME_1
-      AttributeType: "N", //ATTRIBUTE_TYPE
+      AttributeName: "pk", //ATTRIBUTE_NAME_1
+      AttributeType: "S", //ATTRIBUTE_TYPE
     },
     {
-      AttributeName: "Episode", //ATTRIBUTE_NAME_2
-      AttributeType: "N", //ATTRIBUTE_TYPE
+      AttributeName: "gsi1pk", //ATTRIBUTE_NAME_2
+      AttributeType: "S", //ATTRIBUTE_TYPE
     },
   ],
   KeySchema: [
     {
-      AttributeName: "Season", //ATTRIBUTE_NAME_1
+      AttributeName: "pk", //ATTRIBUTE_NAME_1
       KeyType: "HASH",
-    },
-    {
-      AttributeName: "Episode", //ATTRIBUTE_NAME_2
-      KeyType: "RANGE",
     },
   ],
   ProvisionedThroughput: {
-    ReadCapacityUnits: 1,
-    WriteCapacityUnits: 1,
+    ReadCapacityUnits: 5,
+    WriteCapacityUnits: 5,
   },
-  TableName: "TEST_TABLE", //TABLE_NAME
-  StreamSpecification: {
-    StreamEnabled: false,
-  },
+  TableName: 'local-backend-cms', //TABLE_NAME
+  GlobalSecondaryIndexes: [
+    {
+      IndexName: "gsi1",
+      KeySchema: [
+        {
+          AttributeName: "gsi1pk",
+          KeyType: "HASH"
+        }
+      ],
+      ProvisionedThroughput: {
+        ReadCapacityUnits: 5,
+        WriteCapacityUnits: 5,
+      },
+      Projection: {
+        ProjectionType: "ALL"
+      }
+    }
+  ]
 };
 
 export const run = async () => {
   try {
+    const command = new ListTablesCommand({});
+    const response = await localDynamoDbClient.send(command);
+    if(!response.TableNames?.includes('local-backend-cms')){
+        console.log(response)
     const data = await localDynamoDbClient.send(new CreateTableCommand(params));
+    console.log('hi')
     console.log("Table Created", data);
-    return data;
+    const batchWrite = seedTable();
+    }else{
+        console.log('table already created')
+    }
   } catch (err) {
     console.log("Error", err);
   }

@@ -49,3 +49,11 @@ brings it all down
 
 force docker to rebuild image
 `docker-compose up -d --build`
+
+
+## Nuclear option
+
+if struggling to stop contain
+
+`docker kill $(docker ps -q)`
+`docker rm $(docker ps -a -q)`

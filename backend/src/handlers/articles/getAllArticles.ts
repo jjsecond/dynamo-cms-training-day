@@ -3,7 +3,7 @@ import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 
 const localDynamoDbClient = new DynamoDBClient({
     region: 'us-east-1',
-    // endpoint: "http://dynamo-db-local:8000", 
+    endpoint: "http://dynamodb-local:8000",
     credentials: {
         accessKeyId: 'local',
         secretAccessKey: 'local'
@@ -14,9 +14,9 @@ const localDynamoDbClient = new DynamoDBClient({
 const getAllArticles = async () => {
     const params = {
         TableName: 'local-backend-cms',
-        Key: marshall({
-            pk: { S: "article#JJJ16b01-f859-43f4-93f2-f9a94e788157" }
-        })
+        Key: {
+            pk: { S: "article#dJJs16b01-f859-43f4-93f2-f9a94e788157" }
+        }
     };
 
     try {
