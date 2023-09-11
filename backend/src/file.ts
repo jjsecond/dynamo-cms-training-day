@@ -25,12 +25,28 @@ export const params = {
       AttributeName: "gsi1pk", //ATTRIBUTE_NAME_2
       AttributeType: "S", //ATTRIBUTE_TYPE
     },
+    {
+      AttributeName: "gsi2pk", //ATTRIBUTE_NAME_2
+      AttributeType: "S", //ATTRIBUTE_TYPE
+    },
+    {
+      AttributeName: "gsi1sk", // ATTRIBUTE_NAME_3 (sort key)
+      AttributeType: "S", // Corrected to "RANGE" for a sort key
+    },
+    {
+      AttributeName: "gsi1skTwo", // ATTRIBUTE_NAME_3 (sort key)
+      AttributeType: "S", // Corrected to "RANGE" for a sort key
+    },
   ],
   KeySchema: [
     {
       AttributeName: "pk", //ATTRIBUTE_NAME_1
       KeyType: "HASH",
     },
+    //  {
+    //   AttributeName: "gsi1sk", // ATTRIBUTE_NAME_3 (sort key)
+    //   KeyType: "RANGE", // Corrected to "RANGE" for a sort key
+    // },
   ],
   ProvisionedThroughput: {
     ReadCapacityUnits: 5,
@@ -44,7 +60,25 @@ export const params = {
         {
           AttributeName: "gsi1pk",
           KeyType: "HASH"
-        }
+        },
+        { AttributeName: "gsi1sk", KeyType: "RANGE" },
+      ],
+      ProvisionedThroughput: {
+        ReadCapacityUnits: 5,
+        WriteCapacityUnits: 5,
+      },
+      Projection: {
+        ProjectionType: "ALL"
+      }
+    },
+    {
+      IndexName: "gsi2",
+      KeySchema: [
+        {
+          AttributeName: "gsi2pk",
+          KeyType: "HASH"
+        },
+        { AttributeName: "gsi2sk", KeyType: "S" },
       ],
       ProvisionedThroughput: {
         ReadCapacityUnits: 5,

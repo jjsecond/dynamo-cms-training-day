@@ -8,7 +8,7 @@
     "dev": "nodemon src/index.ts",
     "build": "rm -rf build/ && prettier --write src/ && tsc",
     "docker": "docker-compose -p backend-cms up",
-    "docker-hard-reset": "docker compose -p backend-cms down --volumes --rmi all"
+    "docker-hard-reset": "docker compose -p backend-cms down --volumes --rmi all && rm -r ./src/docker"
   },
   "author": "",
   "license": "ISC",

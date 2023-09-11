@@ -15,9 +15,7 @@
 # production
 /build
 
-# misc
-.DS_Store
-*.pem
+
 
 # debug
 npm-debug.log*
@@ -34,4 +32,4 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-./src/handlers/*
+/src/docker
