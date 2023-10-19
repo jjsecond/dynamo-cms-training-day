@@ -15,7 +15,7 @@ export type Article = {
 
 
 const getAllByGsi1 = async (req: Request, res: Response) => {
-
+// will search on type
 
     const params = {
         TableName: 'local-backend-cms',

@@ -21,20 +21,22 @@ export const params = {
       AttributeName: "pk", //ATTRIBUTE_NAME_1
       AttributeType: "S", //ATTRIBUTE_TYPE
     },
+    // first global secondary index for rang key with date
     {
       AttributeName: "gsi1pk", //ATTRIBUTE_NAME_2
-      AttributeType: "S", //ATTRIBUTE_TYPE
-    },
-    {
-      AttributeName: "gsi2pk", //ATTRIBUTE_NAME_2
       AttributeType: "S", //ATTRIBUTE_TYPE
     },
     {
       AttributeName: "gsi1sk", // ATTRIBUTE_NAME_3 (sort key)
       AttributeType: "S", // Corrected to "RANGE" for a sort key
     },
+    //the second secondary index and text sort key
+    { 
+      AttributeName: "gsi2pk", //ATTRIBUTE_NAME_2
+      AttributeType: "S", //ATTRIBUTE_TYPE
+    },
     {
-      AttributeName: "gsi1skTwo", // ATTRIBUTE_NAME_3 (sort key)
+      AttributeName: "gsi2sk", // ATTRIBUTE_NAME_3 (sort key)
       AttributeType: "S", // Corrected to "RANGE" for a sort key
     },
   ],
@@ -43,10 +45,6 @@ export const params = {
       AttributeName: "pk", //ATTRIBUTE_NAME_1
       KeyType: "HASH",
     },
-    //  {
-    //   AttributeName: "gsi1sk", // ATTRIBUTE_NAME_3 (sort key)
-    //   KeyType: "RANGE", // Corrected to "RANGE" for a sort key
-    // },
   ],
   ProvisionedThroughput: {
     ReadCapacityUnits: 5,

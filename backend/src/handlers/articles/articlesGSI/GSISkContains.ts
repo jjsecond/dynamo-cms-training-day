@@ -1,5 +1,5 @@
 import { QueryCommand } from '@aws-sdk/client-dynamodb';
-import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
+import { unmarshall } from '@aws-sdk/util-dynamodb';
 import localDynamoDbClient from '../../../lib/localDynamoDbClient';
 import { Request, Response } from 'express';
 
@@ -16,17 +16,21 @@ export type Article = {
 
 const GSISkContains = async (req: Request, res: Response) => {
 // gsipk2 is the date created and we will look between two dates to find all that fall in thos parameters
-const substring = 'Jenny'
+const substring = 'Garu'
+/*
+  KeyConditionExpression: 'gsi1pk = :v_type AND gsi1sk BETWEEN :start_date and :end_date',
+  */
 
     const params = {
         TableName: 'local-backend-cms',
-        IndexName: 'gsi1',
-        KeyConditionExpression: 'gsi1pk = :v_type AND gsi1sk BETWEEN :start_date and :end_date',
-        FilterExpression: 'contains(gsi1skTwo, :substring)', // Check if gsi1sk contains the substring
+        IndexName: 'gsi2',
+        KeyConditionExpression: 'gsi2pk = :v_type AND begins_with(gsi2sk, :word)', // GSI partition key condition
         ExpressionAttributeValues: {
-          ':substring': { S: substring }, // Substring you want to search for
+            ':v_type': { S: 'article' }, // Replace with your GSI partition key value
+            ':word': { S: substring }, // The word you want to search for
         },
-    };
+        }
+   
 
     try {
         const data = await localDynamoDbClient.send(new QueryCommand(params));

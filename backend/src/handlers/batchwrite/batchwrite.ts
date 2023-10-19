@@ -15,10 +15,11 @@ const seedTable = async () => {
             "local-backend-cms": [{
                 PutRequest: {
                     Item: {
-                        pk: { S: "article#da616b01-f859-43f4-93f2-f9a94e788157" },
+                        pk: { S: "article#da616b01-f859-43f4-93f2-fJJJJJJJ" },
                         gsi1pk: { S: "article" },
                         gsi1sk: {S: "2023-04-26T15:40:16.896Z"},
-                        gsi1skTwo:{S: "Jenny is sound"},
+                        gsi2pk:{S: "article"},
+                        gsi2sk: {S: "Tommy is good"},
                         dateCreated: { S: "2023-04-26T15:40:16.896Z" },
                         text: { S: "This is the body" },
                         headline: { S: "headline One" },
@@ -30,10 +31,11 @@ const seedTable = async () => {
             {
                 PutRequest: {
                     Item: {
-                        pk: { S: "article#dJJs16b01-f859-43f4-93f2-f9a94e788157" },
+                        pk: { S: "article#dJJs16b01-f859-43f4-93f2FFFFFF" },
                         gsi1pk: { S: "article" },
                         gsi1sk: {S: "2023-05-26T15:40:16.896Z"},
-                        gsi1skTwo:{S: "Jenny is great"},
+                        gsi2pk:{S: "article"},
+                        gsi2sk: {S: "Tina is good"},
                         dateCreated: { S: "2023-05-26T15:40:16.896Z" },
                         text: { S: "What you got" },
                         headline: { S: "headline two" },
@@ -45,10 +47,11 @@ const seedTable = async () => {
             {
                 PutRequest: {
                     Item: {
-                        pk: { S: "article#ddd616b01-f859-43f4-93f2-f9a94e788157" },
+                        pk: { S: "article#ddd616b01-f859-43f4-93f2-KKKKKK" },
                         gsi1pk: { S: "article" },
                         gsi1sk: {S: "2023-08-26T15:40:16.896Z"},
-                        gsi1skTwo:{S: "Tommy is good"},
+                        gsi2pk:{S: "article"},
+                        gsi2sk: {S: "Sandra is good"},
                         dateCreated: { S: "2023-08-26T15:40:16.896Z" },
                         text: { S: "Come at me bro" },
                         headline: { S: "headline three" },
@@ -60,10 +63,11 @@ const seedTable = async () => {
             {
                 PutRequest: {
                     Item: {
-                        pk: { S: "article#ddd616b01-f859-43f4-93f2-fDFSDF" },
+                        pk: { S: "article#ddd616b01-f859-43f4-93f2-WWWWWWW" },
                         gsi1pk: { S: "article" },
                         gsi1sk: {S: "2023-10-26T15:40:16.896Z"},
-                        gsi1skTwo:{S: "Tommy is great"},
+                        gsi2pk:{S: "article"},
+                        gsi2sk: {S: "Garu is good"},
                         dateCreated: { S: "2023-10-26T15:40:16.896Z" },
                         text: { S: "I HAVE a sort of the in 10th month" },
                         headline: { S: "headline fourth" },
@@ -76,7 +80,13 @@ const seedTable = async () => {
         }
     },);
 
-    await localDynamoDbClient.send(command);
+    try{
+    const data= await localDynamoDbClient.send(command);
+    console.log(data)
+    }catch(err){
+        console.log(err)
+        return null;
+    }
 };
 
 export default seedTable;

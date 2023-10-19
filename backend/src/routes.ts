@@ -12,7 +12,7 @@ router.get('/healthcheck', healthcheck);
 // article routes
 router.get('/getArticleById/:id', getAllArticles);
 router.get('/getAllByGsi1/:id', getAllByGsi1);
-router.get('/getAllByGSIWithSortKeyDate/:id', getAllByGSIWithSortKeyDate);
+router.post('/getAllByGSIWithSortKeyDate', getAllByGSIWithSortKeyDate);
 router.get('/GSISkContains/:id', GSISkContains);
 
 
