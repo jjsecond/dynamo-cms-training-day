@@ -17,10 +17,10 @@ export type Article = {
 const getAllByGSIWithSortKeyDate = async (req: Request, res: Response) => {
 // gsipk2 is the date created and we will look between two dates to find al that fall in thos parameters
 
-console.log(req)
+console.log({requestBody: req.body}) 
 
 const type = 'article'
-const startDate = '2023-09-26T00:00:00.000Z'; // Replace with your start date
+const startDate = '2020-09-26T00:00:00.000Z'; // Replace with your start date
 const endDate = '2023-12-31T00:00:00.000Z';   // Replace with your end date
 
     const params = {

@@ -10,7 +10,7 @@ const port = 3050;
 app.use(router);
 
 // parse application/json
-app.use(bodyParser.json())
+// app.use(bodyParser.json())
 
 
 run();

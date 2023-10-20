@@ -4,8 +4,10 @@ import getAllArticles from "./handlers/articles/articlesGSI/getAllbyGSI";
 import getAllByGsi1 from "./handlers/articles/articlesGSI/getAllbyGSI";
 import getAllByGSIWithSortKeyDate from "./handlers/articles/articlesGSI/getAllByGSIWithSortKeyDate";
 import GSISkContains from "./handlers/articles/articlesGSI/GSISkContains";
+import bodyParser from "body-parser";
 
 const router = express.Router();
+router.use(bodyParser.json())
 
 router.get('/healthcheck', healthcheck);
 
