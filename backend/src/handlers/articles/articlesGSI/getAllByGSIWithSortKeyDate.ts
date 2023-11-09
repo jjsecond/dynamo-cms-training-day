@@ -17,20 +17,18 @@ export type Article = {
 const getAllByGSIWithSortKeyDate = async (req: Request, res: Response) => {
 // gsipk2 is the date created and we will look between two dates to find al that fall in thos parameters
 
-console.log({requestBody: req.body}) 
+const reqBody = req.body;
 
-const type = 'article'
-const startDate = '2020-09-26T00:00:00.000Z'; // Replace with your start date
-const endDate = '2023-12-31T00:00:00.000Z';   // Replace with your end date
+
 
     const params = {
         TableName: 'local-backend-cms',
         IndexName: 'gsi1',
         KeyConditionExpression: 'gsi1pk = :v_type AND gsi1sk BETWEEN :start_date and :end_date',
         ExpressionAttributeValues: {
-          ':v_type': { S: type },
-          ':start_date': { S: startDate },
-          ':end_date': { S: endDate },
+          ':v_type': { S: reqBody.type },
+          ':start_date': { S: reqBody.startDate },
+          ':end_date': { S: reqBody.endDate },
         },
     };
 

@@ -15,14 +15,17 @@ export type Article = {
 
 
 const getAllByGsi1 = async (req: Request, res: Response) => {
-// will search on type whether article, authur
+// will search on type whether article, author
+
+
+const reqBody = req.body;
 
     const params = {
         TableName: 'local-backend-cms',
         IndexName: 'gsi1',
         KeyConditionExpression: 'gsi1pk = :v_type',
         ExpressionAttributeValues: {
-          ':v_type': { S: `article` },
+          ':v_type': { S: reqBody.type },
         },
     };
 

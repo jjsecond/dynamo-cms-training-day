@@ -5,17 +5,26 @@ import getAllByGsi1 from "./handlers/articles/articlesGSI/getAllbyGSI";
 import getAllByGSIWithSortKeyDate from "./handlers/articles/articlesGSI/getAllByGSIWithSortKeyDate";
 import GSISkContains from "./handlers/articles/articlesGSI/GSISkContains";
 import bodyParser from "body-parser";
+import deleteArticleById from "./handlers/articles/deleteArticleById";
+import getAllEntities from "./handlers/articles/getAllEntities";
 
 const router = express.Router();
 router.use(bodyParser.json())
 
 router.get('/healthcheck', healthcheck);
 
+//get all types, ie SCAN
+router.get('/getAllEntities', getAllEntities)
+
 // article routes
 router.get('/getArticleById/:id', getAllArticles);
 router.get('/getAllByGsi1/:id', getAllByGsi1);
+
+//delete, update
+router.delete('/deleteArticle', deleteArticleById);
+
 router.post('/getAllByGSIWithSortKeyDate', getAllByGSIWithSortKeyDate);
-router.get('/GSISkContains/:id', GSISkContains);
+router.post('/GSISkContains', GSISkContains);
 
 
 export { router };

@@ -16,7 +16,7 @@ export type Article = {
 
 const GSISkContains = async (req: Request, res: Response) => {
 // gsipk2 is the date created and we will look between two dates to find all that fall in thos parameters
-const substring = 'Garu'
+const body = req.body;
 /*
   KeyConditionExpression: 'gsi1pk = :v_type AND gsi1sk BETWEEN :start_date and :end_date',
   */
@@ -27,7 +27,7 @@ const substring = 'Garu'
         KeyConditionExpression: 'gsi2pk = :v_type AND begins_with(gsi2sk, :word)', // GSI partition key condition
         ExpressionAttributeValues: {
             ':v_type': { S: 'article' }, // Replace with your GSI partition key value
-            ':word': { S: substring }, // The word you want to search for
+            ':word': { S: body.headlineBeginsWith }, // The word you want to search for
         },
         }
    
