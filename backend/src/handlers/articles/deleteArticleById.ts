@@ -17,7 +17,7 @@ export type Article = {
 const deleteArticleById = async (req: Request, res: Response) => {
 
     const body = req.body;
-
+    console.log(body);
 
     const params = {
         TableName: 'local-backend-cms',

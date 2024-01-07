@@ -31,7 +31,7 @@ const reqBody = req.body;
 
     try {
         const data = await localDynamoDbClient.send(new QueryCommand(params));
-        console.log(data);
+        console.log(data.Items && data.Items.map((item) => unmarshall(item)));
         if (data.Items === undefined) {
             return res.status(200).json({body: {msg:'no items matching'}});
           }

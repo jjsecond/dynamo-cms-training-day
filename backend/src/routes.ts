@@ -7,6 +7,7 @@ import GSISkContains from "./handlers/articles/articlesGSI/GSISkContains";
 import bodyParser from "body-parser";
 import deleteArticleById from "./handlers/articles/deleteArticleById";
 import getAllEntities from "./handlers/articles/getAllEntities";
+import updateAnArticle from "./handlers/articles/updateArticle";
 
 const router = express.Router();
 router.use(bodyParser.json())
@@ -18,7 +19,12 @@ router.get('/getAllEntities', getAllEntities)
 
 // article routes
 router.get('/getArticleById/:id', getAllArticles);
-router.get('/getAllByGsi1/:id', getAllByGsi1);
+
+// use this to get all articles
+router.post('/getAllByGsi1', getAllByGsi1);
+
+// update an article
+router.post('/updateArticle', updateAnArticle);
 
 //delete, update
 router.delete('/deleteArticle', deleteArticleById);
